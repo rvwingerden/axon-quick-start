@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.axoniq.labs</groupId>
-    <artifactId>chat-parent</artifactId>
+    <artifactId>vesselcall-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -19,7 +19,7 @@
     </parent>
 
     <modules>
-        <module>chat-getting-started</module>
+        <module>simple-vesselcall</module>
         <module>chat-scaling-out</module>
     </modules>
 
