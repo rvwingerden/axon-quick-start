@@ -1,4 +1,4 @@
-package io.axoniq.labs.chat;
+package com.shadem.labs.vesselcall;
 
 import com.google.common.base.Predicates;
 import org.springframework.boot.SpringApplication;
@@ -12,10 +12,10 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-public class ChatGettingStartedApplication {
+public class VesselCallApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ChatGettingStartedApplication.class, args);
+        SpringApplication.run(VesselCallApplication.class, args);
     }
 
 
