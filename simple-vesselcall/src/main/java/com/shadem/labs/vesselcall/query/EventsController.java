@@ -1,4 +1,4 @@
-package io.axoniq.labs.chat.query.events;
+package com.shadem.labs.vesselcall.query;
 
 import org.axonframework.eventhandling.EventMessage;
 import org.axonframework.eventsourcing.eventstore.EventStore;

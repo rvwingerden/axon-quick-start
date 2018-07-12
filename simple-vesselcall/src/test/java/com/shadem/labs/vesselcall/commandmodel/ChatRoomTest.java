@@ -1,6 +1,5 @@
-package io.axoniq.labs.chat.commandmodel;
+package com.shadem.labs.vesselcall.commandmodel;
 
-import com.shadem.labs.vesselcall.commandmodel.VesselCall;
 import com.shadem.labs.vesselcall.coreapi.CreateVesselCallCommand;
 import com.shadem.labs.vesselcall.coreapi.VesselCallCreatedEvent;
 import org.axonframework.test.aggregate.AggregateTestFixture;

@@ -1,12 +1,13 @@
 package com.shadem.labs.vesselcall.commandmodel;
 
-import com.shadem.labs.vesselcall.coreapi.CreateVesselCallCommand;
-import com.shadem.labs.vesselcall.coreapi.VesselCallCreatedEvent;
+import com.shadem.labs.vesselcall.coreapi.*;
+import com.shadem.labs.vesselcall.vesselcallapi.api.UpdateVoyageDetails;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +20,11 @@ public class VesselCall {
     private String callReferenceNumber;
     private String vessel;
     private String port;
+    private String carrier;
+    private String eta;
     private Set<String> berths;
+
+    private boolean locked = false;
 
     public VesselCall() {
     }
@@ -29,11 +34,36 @@ public class VesselCall {
         apply(new VesselCallCreatedEvent(command.getCallReferenceNumber(), command.getVessel(), command.getPort()));
     }
 
+    @CommandHandler
+    public void handle(UpdateVoyageDetailsCommand command) {
+        apply(new VoyageDetailsUpdatedEvent(command.getCallReferenceNumber(), command.getCarrier(), command.getEta()));
+    }
+
+    @CommandHandler
+    public void handle(SendVesselVisit2PaCommand command) {
+        apply(new VesselVisitSent2PaEvent(command.getCallReferenceNumber(), this));
+    }
+
     @EventSourcingHandler
     protected void on(VesselCallCreatedEvent event) {
         this.callReferenceNumber = event.getCallReferenceNumber();
         this.vessel = event.getVessel();
         this.port = event.getPort();
         this.berths = new HashSet<>();
+    }
+
+    @EventSourcingHandler
+    protected void on(VoyageDetailsUpdatedEvent event) {
+        this.carrier = event.getCarrier();
+        this.eta = event.getEta();
+    }
+
+    @EventSourcingHandler
+    protected void on(VesselVisitSent2PaEvent event) {
+        this.locked = true;
+    }
+
+    public String getVessel() {
+        return vessel;
     }
 }

@@ -1,4 +1,4 @@
-package io.axoniq.labs.chat;
+package com.shadem.labs.vesselcall;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

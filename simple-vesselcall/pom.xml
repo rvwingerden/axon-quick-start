@@ -11,8 +11,8 @@
 	<description>AxonIQ Getting Started - Chat application</description>
 
 	<parent>
-		<groupId>io.axoniq.labs</groupId>
-		<artifactId>chat-parent</artifactId>
+		<groupId>com.shadem.labs</groupId>
+		<artifactId>vesselcall-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
