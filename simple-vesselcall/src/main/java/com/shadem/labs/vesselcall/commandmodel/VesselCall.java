@@ -11,6 +11,9 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.shadem.labs.vesselcall.commandmodel.DeclarationStatus.ACCEPTED;
+import static com.shadem.labs.vesselcall.commandmodel.DeclarationStatus.DECLARED;
+import static com.shadem.labs.vesselcall.commandmodel.DeclarationStatus.NEW;
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
 @Aggregate
@@ -24,7 +27,7 @@ public class VesselCall {
     private String eta;
     private Set<String> berths;
 
-    private boolean locked = false;
+    private DeclarationStatus paStatus = NEW;
 
     public VesselCall() {
     }
@@ -44,6 +47,11 @@ public class VesselCall {
         apply(new VesselVisitSent2PaEvent(command.getCallReferenceNumber(), this));
     }
 
+    @CommandHandler
+    public void handle(AcceptVesselVisit2PaCommand command) {
+        apply(new VesselVisit2PaAcceptedEvent(command.getCallReferenceNumber()));
+    }
+
     @EventSourcingHandler
     protected void on(VesselCallCreatedEvent event) {
         this.callReferenceNumber = event.getCallReferenceNumber();
@@ -60,7 +68,13 @@ public class VesselCall {
 
     @EventSourcingHandler
     protected void on(VesselVisitSent2PaEvent event) {
-        this.locked = true;
+        this.paStatus = DECLARED;
+    }
+
+    @EventSourcingHandler
+    protected void on(VesselVisit2PaAcceptedEvent event) {
+        System.out.println("jiahaalllallla accepted.....");
+        this.paStatus = ACCEPTED;
     }
 
     public String getVessel() {
